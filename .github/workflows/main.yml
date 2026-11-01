@@ -46,7 +46,7 @@ jobs:
       - name: Sync Genie with Android
         run: npx cap sync android
 
-            - name: Build Android App Bundle
+      - name: Build Android App Bundle
         run: |
           cd android
           ./gradlew bundleRelease
