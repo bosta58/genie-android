@@ -26,6 +26,12 @@ jobs:
           cp -R source/. www/
           rm -rf www/.git
 
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
