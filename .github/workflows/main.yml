@@ -50,3 +50,8 @@ jobs:
         run: |
           cd android
           ./gradlew bundleRelease
+           - name: Upload Genie Android App
+        uses: actions/upload-artifact@v4
+        with:
+          name: Genie-Android
+          path: android/app/build/outputs/bundle/release/*.aab     
