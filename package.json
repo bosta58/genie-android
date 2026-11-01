@@ -1,17 +1,9 @@
 {
-“name”: “genie-android”,
-“version”: “1.0.0”,
-“private”: true,
-“description”: “Genie Android salary application”,
-“type”: “module”,
-“scripts”: {
-“build”: “echo Genie Android build ready”
-},
-“dependencies”: {
-“@capacitor/core”: “^7.4.3”
-},
-“devDependencies”: {
-“@capacitor/cli”: “^7.4.3”,
-“@capacitor/android”: “^7.4.3”
-}
+  "name": "genie-android",
+  "version": "1.0.0",
+  "description": "Genie Android App",
+  "private": true,
+  "scripts": {
+    "build": "echo Genie build"
+  }
 }
