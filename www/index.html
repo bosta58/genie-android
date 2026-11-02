@@ -1,14 +1,187 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#eef2f7">
   <title>Genie</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      color: #243247;
+      margin: 0;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 520px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      color: #2456a6;
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+    .intro {
+      text-align: center;
+      color: #65738a;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      margin: 15px 0 7px;
+      font-weight: bold;
+    }
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd5e2;
+      border-radius: 8px;
+      font-size: 16px;
+      background: white;
+    }
+    .documents {
+      margin-top: 25px;
+      line-height: 2;
+    }
+    a {
+      color: #2456a6;
+      font-weight: bold;
+    }
+    .acceptance {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 22px;
+      line-height: 1.5;
+    }
+    .acceptance input {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 22px;
+      border: none;
+      border-radius: 9px;
+      background: #2456a6;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+    }
+    button:disabled {
+      background: #aab5c5;
+    }
+    .note {
+      font-size: 13px;
+      color: #778397;
+      text-align: center;
+      margin-top: 18px;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
   <h1>Genie</h1>
-  <p>Welcome to Genie Android.</p>
-  <p>Simple and professional salary calculation.</p>
+  <p class="intro" id="intro">
+    Dobrodošli u Genie – jednostavan i profesionalan obračun plate.
+  </p>
+  <label for="language" id="languageLabel">Izaberite jezik:</label>
+  <select id="language" onchange="changeLanguage()">
+    <option value="sr">Srpski</option>
+    <option value="sv">Svenska</option>
+    <option value="en">English</option>
+  </select>
+  <div class="documents">
+    <p><a href="uslovi.html" id="termsLink">Uslovi korišćenja</a></p>
+    <p><a href="privatnost.html" id="privacyLink">Politika privatnosti</a></p>
+    <p><a href="licenca.html" id="licenseLink">Licenca</a></p>
+  </div>
+  <div class="acceptance">
+    <input type="checkbox" id="accept">
+    <label for="accept" id="acceptText">
+      Pročitao/la sam i prihvatam uslove korišćenja, politiku privatnosti i licencu.
+    </label>
+  </div>
+  <button id="continueButton" disabled onclick="continueToGenie()">
+    Nastavi u Genie
+  </button>
+  <p class="note" id="note">
+    Prihvatanje je potrebno pre nastavka.
+  </p>
+</div>
+<script>
+const translations = {
+  sr: {
+    intro: "Dobrodošli u Genie – jednostavan i profesionalan obračun plate.",
+    language: "Izaberite jezik:",
+    terms: "Uslovi korišćenja",
+    privacy: "Politika privatnosti",
+    license: "Licenca",
+    accept: "Pročitao/la sam i prihvatam uslove korišćenja, politiku privatnosti i licencu.",
+    button: "Nastavi u Genie",
+    note: "Prihvatanje je potrebno pre nastavka.",
+    required: "Morate prihvatiti sve dokumente pre nastavka.",
+    destination: "Genie početna stranica još nije povezana."
+  },
+  sv: {
+    intro: "Välkommen till Genie – enkel och professionell löneberäkning.",
+    language: "Välj språk:",
+    terms: "Användarvillkor",
+    privacy: "Integritetspolicy",
+    license: "Licens",
+    accept: "Jag har läst och godkänner användarvillkoren, integritetspolicyn och licensen.",
+    button: "Fortsätt till Genie",
+    note: "Du måste godkänna innan du fortsätter.",
+    required: "Du måste godkänna alla dokument innan du fortsätter.",
+    destination: "Genies startsida är ännu inte ansluten."
+  },
+  en: {
+    intro: "Welcome to Genie – simple and professional salary calculation.",
+    language: "Choose language:",
+    terms: "Terms of Use",
+    privacy: "Privacy Policy",
+    license: "License",
+    accept: "I have read and agree to the Terms of Use, Privacy Policy and License.",
+    button: "Continue to Genie",
+    note: "Acceptance is required before continuing.",
+    required: "You must accept all documents before continuing.",
+    destination: "The Genie home page is not connected yet."
+  }
+};
+function changeLanguage() {
+  const lang = document.getElementById("language").value;
+  const t = translations[lang];
+  document.documentElement.lang = lang;
+  document.getElementById("intro").textContent = t.intro;
+  document.getElementById("languageLabel").textContent = t.language;
+  document.getElementById("termsLink").textContent = t.terms;
+  document.getElementById("privacyLink").textContent = t.privacy;
+  document.getElementById("licenseLink").textContent = t.license;
+  document.getElementById("acceptText").textContent = t.accept;
+  document.getElementById("continueButton").textContent = t.button;
+  document.getElementById("note").textContent = t.note;
+}
+document.getElementById("accept").addEventListener("change", function() {
+  document.getElementById("continueButton").disabled = !this.checked;
+});
+function continueToGenie() {
+  const lang = document.getElementById("language").value;
+  const t = translations[lang];
+  if (!document.getElementById("accept").checked) {
+    alert(t.required);
+    return;
+  }
+  alert(t.destination);
+}
+</script>
 </body>
 </html>
