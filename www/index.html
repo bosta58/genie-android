@@ -149,39 +149,74 @@ const translations = {
     language: "Choose language:",
     terms: "Terms of Use",
     privacy: "Privacy Policy",
-    license: "License",
-    accept: "I have read and agree to the Terms of Use, Privacy Policy and License.",
+    license: "Licence Agreement",
+    accept: "I have read and agree to the Terms of Use, Privacy Policy and Licence Agreement.",
     button: "Continue to Genie",
     note: "Acceptance is required before continuing.",
     required: "You must accept all documents before continuing.",
     destination: "The Genie home page is not connected yet."
   }
 };
+
+const documentLinks = {
+  sr: {
+    terms: "uslovi.html",
+    privacy: "privatnost.html",
+    license: "licenca.html"
+  },
+  sv: {
+    terms: "terms.html",
+    privacy: "privacy.html",
+    license: "license.html"
+  },
+  en: {
+    terms: "terms-en.html",
+    privacy: "privacy-en.html",
+    license: "license-en.html"
+  }
+};
+
 function changeLanguage() {
   const lang = document.getElementById("language").value;
   const t = translations[lang];
+  const links = documentLinks[lang];
+
   document.documentElement.lang = lang;
+
   document.getElementById("intro").textContent = t.intro;
   document.getElementById("languageLabel").textContent = t.language;
+
   document.getElementById("termsLink").textContent = t.terms;
+  document.getElementById("termsLink").href = links.terms;
+
   document.getElementById("privacyLink").textContent = t.privacy;
+  document.getElementById("privacyLink").href = links.privacy;
+
   document.getElementById("licenseLink").textContent = t.license;
+  document.getElementById("licenseLink").href = links.license;
+
   document.getElementById("acceptText").textContent = t.accept;
   document.getElementById("continueButton").textContent = t.button;
   document.getElementById("note").textContent = t.note;
 }
+
 document.getElementById("accept").addEventListener("change", function() {
   document.getElementById("continueButton").disabled = !this.checked;
 });
+
 function continueToGenie() {
   const lang = document.getElementById("language").value;
   const t = translations[lang];
+
   if (!document.getElementById("accept").checked) {
     alert(t.required);
     return;
   }
+
   alert(t.destination);
 }
+
+changeLanguage();
 </script>
 </body>
 </html>
