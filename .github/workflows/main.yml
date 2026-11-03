@@ -20,11 +20,18 @@ jobs:
           repository: bosta58/-loneberakning
           path: source
 
-      - name: Prepare Genie web files
+           - name: Prepare Genie web files
         run: |
+          rm -rf www
           mkdir -p www
           cp -R source/. www/
           rm -rf www/.git
+          echo "PROVERA GLAVNOG GENIE INDEX.HTML:"
+          grep -n "Timlön" www/index.html | head
+          echo "PROVERA FIREBASE TRIAL FUNKCIJE:"
+          grep -n "startOrGetTrial" www/genie-firebase.js | head
+          echo "PROVERA TRIAL FAJLA:"
+          test -f www/genie-trial.js && echo "genie-trial.js POSTOJI"
 
       - name: Setup Java
         uses: actions/setup-java@v4
