@@ -21,10 +21,11 @@ jobs:
           path: source
 
       - name: Prepare Genie web files
-        run: |
-          mkdir -p www
-          cp -R source/. www/
-          rm -rf www/.git
+    run: |
+    rm -rf www
+    mkdir -p www
+    cp -R source/. www/
+    rm -rf www/.git
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
