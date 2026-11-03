@@ -20,7 +20,7 @@ jobs:
           repository: bosta58/-loneberakning
           path: source
 
-           - name: Prepare Genie web files
+      - name: Prepare Genie web files
         run: |
           rm -rf www
           mkdir -p www
